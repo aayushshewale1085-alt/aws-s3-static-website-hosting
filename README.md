@@ -154,10 +154,9 @@ http://bucke+t-name.s3-website-us-east-1.amazonaws.com
 Open it in the browser.
 
 ### Screenshot
+<img src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" width="800"><br><br>
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183443" src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" /><<br>
-
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183429" src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" /><br><br>
+<img src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" width="800"><br><br>
 ---
 
 ## Step 6: Replica Bucket
@@ -175,8 +174,7 @@ To demonstrate object replication manually, a second S3 bucket was created in th
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/ea47ddb1-660f-4b57-a333-89babcc71eee" />
-
+<img src="https://github.com/user-attachments/assets/ea47ddb1-660f-4b57-a333-89babcc71eee" width="800"><br><br>
 
 ---
 
