@@ -1,4 +1,3 @@
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/dc9d6129-dab4-4e24-ad01-66acae0f27c8" />
 # 🌐 Static Website Hosting on AWS S3
 
 A simple cloud project demonstrating how to host a **static website** using **Amazon S3**. This project covers bucket creation, static website hosting configuration, public access permissions, bucket policy, object upload, and website deployment.
@@ -97,7 +96,7 @@ After creating the bucket, it appears in the S3 bucket list.
 
 ### Screenshot
 
-<img width="800" height="900" alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/72eeaabb-a737-424d-bf21-f2d9825dd4f2" />
+<img width="800"  alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/72eeaabb-a737-424d-bf21-f2d9825dd4f2" />
 
 
 
