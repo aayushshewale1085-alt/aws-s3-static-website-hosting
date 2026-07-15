@@ -96,7 +96,7 @@ After creating the bucket, it appears in the S3 bucket list.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 112826" src="https://github.com/user-attachments/assets/ab0f0615-a365-4560-9993-fe52d3dece9c" />
+<img src="https://github.com/user-attachments/assets/ab0f0615-a365-4560-9993-fe52d3dece9" width="800"><br><br>
 
 
 ---
@@ -113,8 +113,7 @@ was uploaded.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 112838" src="https://github.com/user-attachments/assets/0156f595-8fd5-4678-9ae4-312dd2fcad66" /><br>
-
+<img src="https://github.com/user-attachments/assets/0156f595-8fd5-4678-9ae4-312dd2fcad66" width="800"><br><br>
 
 ---
 
@@ -140,9 +139,7 @@ Save changes.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 112853" src="https://github.com/user-attachments/assets/94c21c8d-6fe0-457d-8e14-87a64bcbef63" /><<br>
-
-
+<img src="https://github.com/user-attachments/assets/94c21c8d-6fe0-457d-8e14-87a64bcbef63" width="800"><br><br>
 ---
 
 ## Step 5: Open Website Endpoint
@@ -161,8 +158,6 @@ Open it in the browser.
 <img width="1920" height="1080" alt="Screenshot 2026-07-15 183443" src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" /><<br>
 
 <img width="1920" height="1080" alt="Screenshot 2026-07-15 183429" src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" /><br><br>
-
-
 ---
 
 ## Step 6: Replica Bucket
