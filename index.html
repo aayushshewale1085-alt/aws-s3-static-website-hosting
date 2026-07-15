@@ -1,0 +1,938 @@
+Netflix 👇
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netflix</title>
+<style>
+:root {
+  --red: #E50914;
+  --dark-red: #b20710;
+  --black: #141414;
+  --dark: #181818;
+  --card-bg: #2a2a2a;
+  --text: #e5e5e5;
+  --muted: #808080;
+  --white: #ffffff;
+  --gold: #F5C518;
+  --green: #46d369;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'Helvetica Neue',Arial,sans-serif;overflow-x:hidden;}
+
+/* ── NAVBAR ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 4%;height:68px;
+  background:linear-gradient(180deg,rgba(0,0,0,.95) 0%,transparent 100%);
+  transition:background .3s;
+}
+nav.solid{background:#141414;}
+.logo{
+  font-size:1.95rem;font-weight:900;color:var(--red);
+  letter-spacing:-1.5px;font-style:italic;
+  text-decoration:none;cursor:pointer;
+  font-family:'Times New Roman',serif;
+}
+.nav-links{display:flex;gap:18px;list-style:none;}
+.nav-links a{color:#e5e5e5;text-decoration:none;font-size:.85rem;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:#fff;}
+.nav-r{display:flex;align-items:center;gap:18px;}
+.icon-btn{
+  background:none;border:none;color:#fff;
+  font-size:1.15rem;cursor:pointer;position:relative;padding:4px;
+  transition:transform .2s;
+}
+.icon-btn:hover{transform:scale(1.15);}
+.badge{
+  position:absolute;top:-4px;right:-4px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--red);font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.avatar{
+  width:32px;height:32px;border-radius:4px;cursor:pointer;
+  background:linear-gradient(135deg,#e50914,#831010);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.85rem;color:#fff;
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;width:100%;height:100vh;
+  display:flex;align-items:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center top;
+  transition:background-image 1.2s ease;
+}
+.hero-vignette{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(80deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.1) 60%),
+    linear-gradient(0deg,rgba(20,20,20,1) 0%,transparent 25%),
+    linear-gradient(180deg,rgba(0,0,0,.5) 0%,transparent 20%);
+}
+.hero-content{position:relative;z-index:2;padding:0 4%;max-width:600px;margin-top:60px;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(90deg,#0066ff,#7700ff);
+  border-radius:3px;padding:3px 10px;font-size:.72rem;
+  font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;
+}
+.hero-title{
+  font-size:clamp(2.2rem,5vw,3.8rem);
+  font-weight:900;line-height:1.05;margin-bottom:14px;
+  text-shadow:2px 2px 12px rgba(0,0,0,.6);
+}
+.hero-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:.88rem;flex-wrap:wrap;}
+.match{color:var(--green);font-weight:700;}
+.yr{color:var(--muted);}
+.cert{border:1px solid var(--muted);padding:1px 5px;font-size:.72rem;color:var(--muted);}
+.imdb-s{color:var(--gold);font-weight:700;}
+.hero-desc{font-size:.95rem;line-height:1.55;color:#ccc;margin-bottom:22px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-play{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:#000;border:none;border-radius:4px;
+  padding:11px 30px;font-size:1rem;font-weight:700;cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.btn-play:hover{background:#ffffffd0;transform:scale(1.03);}
+.btn-more{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(109,109,110,.72);color:#fff;
+  border:none;border-radius:4px;
+  padding:11px 24px;font-size:1rem;font-weight:700;
+  cursor:pointer;backdrop-filter:blur(4px);
+  transition:background .2s,transform .15s;
+}
+.btn-more:hover{background:rgba(109,109,110,.92);transform:scale(1.03);}
+
+/* ── ROWS ── */
+.rows{padding:0 4% 70px;margin-top:-90px;position:relative;z-index:3;}
+.row{margin-bottom:38px;}
+.row-hd{
+  font-size:1.25rem;font-weight:700;margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.row-hd .tag{
+  font-size:.62rem;background:var(--red);
+  padding:2px 6px;border-radius:2px;letter-spacing:1px;text-transform:uppercase;
+}
+.row-hd .see-all{font-size:.78rem;color:#54b3d6;cursor:pointer;margin-left:auto;display:none;}
+.row:hover .see-all{display:inline;}
+
+.strip{
+  display:flex;gap:5px;overflow-x:auto;
+  scroll-snap-type:x mandatory;padding-bottom:6px;
+  scrollbar-width:none;
+}
+.strip::-webkit-scrollbar{display:none;}
+
+/* ── CARD ── */
+.card{
+  flex:0 0 185px;scroll-snap-align:start;
+  border-radius:4px;overflow:hidden;
+  position:relative;cursor:pointer;
+  background:#1c1c1c;
+  transition:transform .28s cubic-bezier(.25,.46,.45,.94),box-shadow .28s;
+}
+.card:hover{transform:scale(1.1);z-index:20;box-shadow:0 10px 35px rgba(0,0,0,.85);}
+.card-poster{width:100%;height:105px;object-fit:cover;display:block;}
+.card-poster-placeholder{
+  width:100%;height:105px;background:#2a2a2a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;
+}
+.card-body{padding:7px 9px 9px;background:linear-gradient(180deg,#1e1e1e,#141414);}
+.card-title{font-size:.79rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card-sub{display:flex;align-items:center;gap:7px;margin-top:3px;font-size:.7rem;color:var(--muted);}
+.card-sub .m{color:var(--green);font-weight:600;}
+.card-sub .r{color:var(--gold);font-weight:700;}
+
+/* hover overlay */
+.card-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.9) 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:8px;opacity:0;transition:opacity .25s;
+}
+.card:hover .card-ov{opacity:1;}
+.card-ov-btns{display:flex;gap:5px;align-items:center;}
+.cob{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.8);
+  background:rgba(0,0,0,.55);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.8rem;color:#fff;
+  transition:background .2s,transform .2s,border-color .2s;
+  flex-shrink:0;
+}
+.cob:hover{background:rgba(255,255,255,.2);transform:scale(1.12);}
+.cob.play-sm{background:#fff;color:#000;border-color:#fff;}
+.cob.play-sm:hover{background:#ddd;}
+.cob.liked{border-color:#e50914;color:#e50914;}
+
+/* TOP-10 */
+.t10card{
+  flex:0 0 150px;position:relative;cursor:pointer;
+  scroll-snap-align:start;border-radius:4px;overflow:visible;
+  transition:transform .28s;
+}
+.t10card:hover{transform:scale(1.08);z-index:20;}
+.t10card img{width:150px;height:85px;object-fit:cover;border-radius:4px;display:block;}
+.t10num{
+  position:absolute;bottom:-18px;left:-8px;
+  font-size:4.5rem;font-weight:900;line-height:1;
+  color:#141414;-webkit-text-stroke:2.5px rgba(255,255,255,.75);
+  pointer-events:none;z-index:5;font-style:italic;
+}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:22px;margin-bottom:18px;border-bottom:1px solid #2a2a2a;flex-wrap:wrap;}
+.tab{
+  font-size:.88rem;padding:8px 0;cursor:pointer;
+  border-bottom:2px solid transparent;color:var(--muted);
+  transition:all .2s;white-space:nowrap;
+}
+.tab.on{color:#fff;border-color:#fff;}
+
+/* ── LIKED PAGE ── */
+.liked-page{
+  display:none;position:fixed;inset:0;z-index:800;
+  background:#141414;overflow-y:auto;padding:90px 4% 60px;
+}
+.liked-page.open{display:block;}
+.liked-hd{
+  font-size:1.8rem;font-weight:900;margin-bottom:24px;
+  display:flex;align-items:center;gap:14px;
+}
+.liked-hd span{color:var(--red);font-size:1.4rem;}
+.liked-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:10px;
+}
+.liked-empty{
+  text-align:center;padding:80px 20px;color:var(--muted);
+}
+.liked-empty .ei{font-size:4rem;margin-bottom:16px;}
+.liked-empty p{font-size:1.1rem;}
+
+/* ── PLAYER MODAL ── */
+.player-overlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:#000;align-items:center;justify-content:center;
+  flex-direction:column;
+}
+.player-overlay.open{display:flex;}
+.player-inner{position:relative;width:100%;max-width:960px;background:#000;}
+.player-poster{
+  width:100%;max-height:80vh;object-fit:contain;display:block;
+}
+.player-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(0deg,rgba(0,0,0,.95),transparent);
+  padding:16px 20px 20px;
+}
+.player-title{font-size:1.3rem;font-weight:700;margin-bottom:10px;}
+.progress-wrap{
+  width:100%;height:4px;background:rgba(255,255,255,.2);
+  border-radius:2px;cursor:pointer;margin-bottom:14px;
+  position:relative;overflow:hidden;
+}
+.progress-fill{height:100%;background:var(--red);border-radius:2px;transition:width .4s linear;}
+.player-controls{display:flex;align-items:center;gap:14px;}
+.pc-btn{
+  background:none;border:none;color:#fff;font-size:1.3rem;
+  cursor:pointer;transition:transform .15s;padding:4px;
+}
+.pc-btn:hover{transform:scale(1.2);}
+.pc-time{font-size:.82rem;color:#ccc;margin-left:auto;}
+.player-like-btn{
+  background:none;border:2px solid rgba(255,255,255,.6);
+  color:#fff;border-radius:50%;width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:1rem;transition:all .2s;
+}
+.player-like-btn.liked{border-color:var(--red);color:var(--red);}
+.player-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(0,0,0,.7);border:none;color:#fff;
+  width:38px;height:38px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;z-index:10;
+}
+.player-close:hover{background:rgba(255,255,255,.15);}
+/* simulated video scanline */
+.player-scanline{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+}
+.player-playing-badge{
+  position:absolute;top:14px;left:14px;
+  background:rgba(229,9,20,.9);border-radius:3px;
+  padding:4px 10px;font-size:.72rem;font-weight:700;
+  letter-spacing:1px;display:flex;align-items:center;gap:6px;
+}
+.pulse{
+  width:7px;height:7px;border-radius:50%;background:#fff;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+/* ── INFO MODAL ── */
+.info-overlay{
+  display:none;position:fixed;inset:0;z-index:1800;
+  background:rgba(0,0,0,.78);align-items:flex-start;
+  justify-content:center;overflow-y:auto;padding:40px 20px;
+}
+.info-overlay.open{display:flex;}
+.info-box{
+  background:#181818;border-radius:8px;
+  width:100%;max-width:820px;overflow:hidden;
+  animation:popIn .3s ease;position:relative;
+}
+@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.info-hero{position:relative;height:420px;}
+.info-hero img{width:100%;height:100%;object-fit:cover;display:block;}
+.info-hero-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#181818 100%);}
+.info-close{
+  position:absolute;top:14px;right:14px;
+  background:rgba(20,20,20,.8);border:none;color:#fff;
+  width:34px;height:34px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;z-index:5;
+}
+.info-title-wrap{position:absolute;bottom:18px;left:22px;right:22px;}
+.info-ttl{font-size:2rem;font-weight:900;margin-bottom:10px;}
+.info-act{display:flex;gap:10px;flex-wrap:wrap;}
+.info-body{padding:20px 22px 26px;}
+.info-row{display:flex;gap:16px;margin-bottom:14px;font-size:.88rem;flex-wrap:wrap;align-items:center;}
+.info-match{color:var(--green);font-weight:700;font-size:.95rem;}
+.info-rt{color:var(--muted);}
+.info-hd{border:1px solid var(--muted);padding:1px 5px;font-size:.7rem;color:var(--muted);}
+.info-imdb{color:var(--gold);font-weight:700;font-size:1rem;}
+.info-like-status{
+  display:none;background:#1e3a2e;border:1px solid var(--green);
+  border-radius:4px;padding:8px 12px;color:var(--green);
+  font-size:.82rem;align-items:center;gap:7px;margin-bottom:12px;
+}
+.info-like-status.on{display:flex;}
+.info-desc{font-size:.92rem;line-height:1.6;color:#ccc;margin-bottom:14px;}
+.info-meta p{font-size:.82rem;color:var(--muted);margin-bottom:5px;}
+.info-meta p span{color:var(--text);}
+
+/* ── SEARCH ── */
+.search-panel{
+  display:none;position:fixed;inset:0;z-index:1500;
+  background:rgba(0,0,0,.96);padding:78px 4% 40px;overflow-y:auto;
+}
+.search-panel.open{display:block;}
+.search-wrap{display:flex;align-items:center;gap:12px;border-bottom:2px solid #555;padding-bottom:12px;margin-bottom:28px;}
+.search-wrap input{
+  background:none;border:none;font-size:1.6rem;
+  color:#fff;outline:none;flex:1;font-family:inherit;
+}
+.search-wrap input::placeholder{color:#444;}
+.search-wrap button{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;}
+.search-grid{display:flex;flex-wrap:wrap;gap:8px;}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:28px;right:28px;z-index:9999;
+  background:#242424;color:#fff;border-radius:5px;
+  padding:13px 18px;font-size:.88rem;
+  display:flex;align-items:center;gap:10px;
+  box-shadow:0 4px 24px rgba(0,0,0,.6);
+  transform:translateY(80px);opacity:0;
+  transition:all .38s cubic-bezier(.25,.46,.45,.94);
+  max-width:320px;border-left:3px solid var(--green);
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── NOTIF ── */
+.notif-panel{
+  display:none;position:fixed;top:70px;right:16px;z-index:1100;
+  background:#1e1e1e;border-radius:6px;width:300px;
+  box-shadow:0 8px 30px rgba(0,0,0,.8);
+}
+.notif-panel.open{display:block;}
+.notif-hd{padding:12px 14px;border-bottom:1px solid #2a2a2a;font-weight:700;font-size:.9rem;}
+.notif-item{
+  display:flex;gap:10px;padding:10px 14px;
+  border-bottom:1px solid #1a1a1a;align-items:flex-start;font-size:.8rem;
+}
+.notif-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:3px;}
+.notif-item img{width:54px;height:32px;object-fit:cover;border-radius:3px;flex-shrink:0;}
+.notif-txt{color:#ccc;line-height:1.4;}
+.notif-time{color:var(--muted);font-size:.72rem;margin-top:2px;}
+
+/* ── FOOTER ── */
+footer{padding:50px 4% 36px;border-top:1px solid #2a2a2a;color:var(--muted);font-size:.78rem;}
+.f-logo{font-size:1.3rem;font-weight:900;color:var(--red);font-style:italic;font-family:'Times New Roman',serif;margin-bottom:18px;}
+.f-links{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
+.f-links a{color:var(--muted);text-decoration:none;}
+.f-links a:hover{color:#fff;}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero-title{font-size:2rem;}
+  .card{flex:0 0 140px;}
+  .info-hero{height:260px;}
+  .info-ttl{font-size:1.4rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" onclick="showHome()">NETFLIX</a>
+  <ul class="nav-links">
+    <li><a href="#" class="active" onclick="showHome()">Home</a></li>
+    <li><a href="#">TV Shows</a></li>
+    <li><a href="#">Movies</a></li>
+    <li><a href="#">New &amp; Popular</a></li>
+    <li><a href="#" onclick="openLiked()">❤️ Liked</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="icon-btn" onclick="toggleSearch()">🔍</button>
+    <button class="icon-btn" onclick="toggleNotif()">
+      🔔<span class="badge" id="notifBadge">2</span>
+    </button>
+    <button class="icon-btn" onclick="openLiked()" title="Liked Movies">
+      ❤️<span class="badge" id="likedBadge" style="display:none">0</span>
+    </button>
+    <div class="avatar">N</div>
+  </div>
+</nav>
+
+<!-- NOTIF PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-hd">Notifications</div>
+  <div class="notif-item">
+    <span class="notif-dot"></span>
+    <img src="https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg" alt="">
+    <div><div class="notif-txt"><b>Stranger Things S5</b> — Episode 1 now streaming!</div><div class="notif-time">2 hours ago</div></div>
+  </div>
+  <div class="notif-item">
+    <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="">
+    <div><div class="notif-txt"><b>Oppenheimer</b> is now available in 4K HDR</div><div class="notif-time">1 day ago</div></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="heroSection">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-badge">⚡ #1 IN INDIA TODAY</div>
+    <h1 class="hero-title" id="heroTitle">Kalki 2898 AD</h1>
+    <div class="hero-meta">
+      <span class="match">98% Match</span>
+      <span class="yr" id="heroYear">2024</span>
+      <span class="cert">UA</span>
+      <span class="imdb-s" id="heroIMDB">★ 8.4</span>
+    </div>
+    <p class="hero-desc" id="heroDesc">In a dystopian future, the mythological warrior Kalki is reborn to defeat the Supreme Yaskin and save humanity — an epic blend of Hindu mythology and futuristic sci-fi action.</p>
+    <div class="hero-btns">
+      <button class="btn-play" id="heroPlay">▶ Play</button>
+      <button class="btn-more" id="heroInfo">ℹ More Info</button>
+    </div>
+  </div>
+</section>
+
+<!-- ROWS -->
+<section class="rows" id="rowsSection">
+  <div class="tabs">
+    <div class="tab on" onclick="filterTab('all',this)">All</div>
+    <div class="tab" onclick="filterTab('bollywood',this)">Bollywood</div>
+    <div class="tab" onclick="filterTab('hollywood',this)">Hollywood</div>
+    <div class="tab" onclick="filterTab('series',this)">Series</div>
+    <div class="tab" onclick="filterTab('ott',this)">OTT Originals</div>
+  </div>
+
+  <div class="row" data-cat="all">
+    <div class="row-hd">🔥 Top 10 in India Today <span class="tag">LIVE</span><span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-top10"></div>
+  </div>
+  <div class="row" data-cat="bollywood">
+    <div class="row-hd">🎬 Blockbuster Bollywood <span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-bolly"></div>
+  </div>
+  <div class="row" data-cat="hollywood">
+    <div class="row-hd">🌟 Hollywood Hits <span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-holly"></div>
+  </div>
+  <div class="row" data-cat="ott">
+    <div class="row-hd">🆕 OTT Originals <span class="tag">NEW</span><span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-ott"></div>
+  </div>
+  <div class="row" data-cat="series">
+    <div class="row-hd">📺 Must-Watch Series <span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-series"></div>
+  </div>
+  <div class="row" data-cat="all">
+    <div class="row-hd">🏆 Award Winners <span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-award"></div>
+  </div>
+  <div class="row" data-cat="all">
+    <div class="row-hd">👁 Most Watched This Week <span class="see-all">See All ›</span></div>
+    <div class="strip" id="r-most"></div>
+  </div>
+</section>
+
+<!-- LIKED PAGE -->
+<div class="liked-page" id="likedPage">
+  <div class="liked-hd"><span>❤️</span> My Liked Movies &amp; Shows</div>
+  <div class="liked-grid" id="likedGrid"></div>
+</div>
+
+<!-- SEARCH PANEL -->
+<div class="search-panel" id="searchPanel">
+  <div class="search-wrap">
+    <span style="font-size:1.4rem">🔍</span>
+    <input type="text" id="searchInput" placeholder="Titles, people, genres…" oninput="doSearch()">
+    <button onclick="toggleSearch()">✕</button>
+  </div>
+  <div class="search-grid" id="searchGrid"></div>
+</div>
+
+<!-- INFO MODAL -->
+<div class="info-overlay" id="infoOverlay" onclick="closeInfo(event)">
+  <div class="info-box" id="infoBox">
+    <div class="info-hero">
+      <img id="infoImg" src="" alt="">
+      <div class="info-hero-grad"></div>
+      <button class="info-close" onclick="closeInfoBtn()">✕</button>
+      <div class="info-title-wrap">
+        <div class="info-ttl" id="infoTitle"></div>
+        <div class="info-act">
+          <button class="btn-play" id="infoPlayBtn">▶ Play</button>
+          <button class="btn-more" id="infoLikeBtn" onclick="toggleLike()">♡ Like</button>
+          <button class="btn-more" onclick="addToList()">＋ My List</button>
+        </div>
+      </div>
+    </div>
+    <div class="info-body">
+      <div class="info-row">
+        <span class="info-match" id="infoMatch"></span>
+        <span class="info-rt" id="infoRuntime"></span>
+        <span class="info-hd">HD</span>
+        <span class="info-imdb" id="infoIMDB"></span>
+      </div>
+      <div class="info-like-status" id="infoLikeStatus">❤️ <span>You liked this!</span></div>
+      <p class="info-desc" id="infoDesc"></p>
+      <div class="info-meta">
+        <p><b>Cast:</b> <span id="infoCast"></span></p>
+        <p><b>Genres:</b> <span id="infoGenre"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYER MODAL -->
+<div class="player-overlay" id="playerOverlay">
+  <div class="player-inner">
+    <div class="player-scanline"></div>
+    <div class="player-playing-badge"><div class="pulse"></div> NOW PLAYING</div>
+    <button class="player-close" onclick="closePlayer()">✕</button>
+    <img class="player-poster" id="playerPoster" src="" alt="">
+    <div class="player-bar">
+      <div class="player-title" id="playerTitle"></div>
+      <div class="progress-wrap" onclick="scrub(event)">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="player-controls">
+        <button class="pc-btn" onclick="togglePlay()">⏸</button>
+        <button class="pc-btn">⏭</button>
+        <button class="pc-btn" onclick="toggleMute()">🔊</button>
+        <button class="pc-btn">📺</button>
+        <button class="player-like-btn" id="playerLikeBtn" onclick="toggleLikeFromPlayer()" title="Like">♡</button>
+        <span class="pc-time" id="pcTime">0:00 / 2:28:00</span>
+        <button class="pc-btn" onclick="closePlayer()">⛶</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span id="toastMsg"></span></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">NETFLIX</div>
+  <div class="f-links">
+    <a href="#">Audio Description</a><a href="#">Help Centre</a>
+    <a href="#">Gift Cards</a><a href="#">Jobs</a>
+    <a href="#">Terms of Use</a><a href="#">Privacy</a>
+    <a href="#">Cookie Preferences</a><a href="#">Contact Us</a>
+  </div>
+  <p>© 2024 Netflix Clone — Educational purposes only. Not affiliated with Netflix, Inc.</p>
+</footer>
+
+<script>
+// ── DATA ──
+const DB = {
+  bollywood: [
+    {t:"Kalki 2898 AD",y:2024,m:98,r:8.4,cert:"UA",rt:"3h 1m",g:"Sci-Fi · Action · Mythology",c:"Prabhas, Deepika Padukone, Amitabh Bachchan",d:"In a dystopian future, the mythological warrior Kalki is reborn to defeat the Supreme Yaskin and save humanity. An epic blend of Hindu mythology and futuristic sci-fi action.",img:"https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg",bg:"https://image.tmdb.org/t/p/original/1E5baAaEse26fej7uHcjOgEE2t2.jpg"},
+    {t:"Animal",y:2023,m:94,r:8.1,cert:"A",rt:"3h 21m",g:"Action · Drama · Thriller",c:"Ranbir Kapoor, Rashmika Mandanna, Anil Kapoor",d:"A son's obsessive love for his father drives him to extreme violence. A raw, dark action drama about family, loyalty, and vengeance.",img:"https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",bg:"https://image.tmdb.org/t/p/original/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"},
+    {t:"Jawan",y:2023,m:96,r:7.4,cert:"UA",rt:"2h 49m",g:"Action · Thriller",c:"Shah Rukh Khan, Nayanthara, Vijay Sethupathi",d:"A high-octane action film where a man is compelled to fight for justice after a personal tragedy shakes his world to the core.",img:"https://image.tmdb.org/t/p/w500/mYM8x2Atv4MaLulaV0KVJWI1Djv.jpg",bg:"https://image.tmdb.org/t/p/original/mYM8x2Atv4MaLulaV0KVJWI1Djv.jpg"},
+    {t:"RRR",y:2022,m:97,r:7.9,cert:"UA",rt:"3h 7m",g:"Action · Drama · History",c:"Ram Charan, Jr NTR, Alia Bhatt, Ajay Devgn",d:"Two legendary Indian freedom fighters and their epic friendship, set against the backdrop of British colonial rule in 1920s India.",img:"https://image.tmdb.org/t/p/w500/anPqgzEcSNHPMKb1KoRnkPdaWra.jpg",bg:"https://image.tmdb.org/t/p/original/anPqgzEcSNHPMKb1KoRnkPdaWra.jpg"},
+    {t:"Dangal",y:2016,m:99,r:8.3,cert:"U",rt:"2h 41m",g:"Sports · Biography · Drama",c:"Aamir Khan, Fatima Sana Shaikh, Sanya Malhotra",d:"A former wrestler trains his daughters to become world-class wrestlers, defying societal norms and chasing Olympic gold.",img:"https://image.tmdb.org/t/p/w500/tmfYrBfOJcf0t36qK9e1Oc8rXVH.jpg",bg:"https://image.tmdb.org/t/p/original/tmfYrBfOJcf0t36qK9e1Oc8rXVH.jpg"},
+    {t:"KGF Chapter 2",y:2022,m:95,r:8.2,cert:"A",rt:"2h 48m",g:"Action · Drama · Crime",c:"Yash, Sanjay Dutt, Raveena Tandon",d:"Rocky's bloodthirsty empire grows as powerful enemies close in from all sides. The most-watched Indian film in history continues its saga.",img:"https://image.tmdb.org/t/p/w500/lZbWNpfmfTCMFxBEFaJAADKGUmN.jpg",bg:"https://image.tmdb.org/t/p/original/lZbWNpfmfTCMFxBEFaJAADKGUmN.jpg"},
+    {t:"3 Idiots",y:2009,m:99,r:8.4,cert:"U",rt:"2h 50m",g:"Comedy · Drama",c:"Aamir Khan, R. Madhavan, Sharman Joshi",d:"Two friends search for a lost companion while reliving their hilarious and heartfelt engineering college days.",img:"https://image.tmdb.org/t/p/w500/66A9MqQLNObe1HkfkuKJlH8ZoRZ.jpg",bg:"https://image.tmdb.org/t/p/original/66A9MqQLNObe1HkfkuKJlH8ZoRZ.jpg"},
+    {t:"Drishyam 2",y:2022,m:93,r:8.2,cert:"UA",rt:"2h 32m",g:"Thriller · Drama · Mystery",c:"Ajay Devgn, Tabu, Shriya Saran",d:"Vijay Salgaonkar and his family still live under dark shadows of secrets from seven years ago. A taut, gripping thriller sequel.",img:"https://image.tmdb.org/t/p/w500/mz4fPXOhBE2QLNX4CQVWZY8FhEa.jpg",bg:"https://image.tmdb.org/t/p/original/mz4fPXOhBE2QLNX4CQVWZY8FhEa.jpg"},
+    {t:"Brahmastra",y:2022,m:83,r:5.7,cert:"UA",rt:"2h 47m",g:"Fantasy · Action · Adventure",c:"Ranbir Kapoor, Alia Bhatt, Amitabh Bachchan",d:"A young man with a unique connection to fire embarks on a journey to protect a mystical weapon from evil forces.",img:"https://image.tmdb.org/t/p/w500/pLucp2WUFT25M62GiFtEdKsHPHC.jpg",bg:"https://image.tmdb.org/t/p/original/pLucp2WUFT25M62GiFtEdKsHPHC.jpg"},
+    {t:"Pathaan",y:2023,m:90,r:7.1,cert:"UA",rt:"2h 26m",g:"Action · Spy · Thriller",c:"Shah Rukh Khan, Deepika Padukone, John Abraham",d:"An exiled spy must stop a lethal terrorist with a vendetta against India — a slick, globe-trotting action spectacle.",img:"https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",bg:"https://image.tmdb.org/t/p/original/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg"},
+  ],
+  hollywood: [
+    {t:"Oppenheimer",y:2023,m:97,r:8.9,cert:"R",rt:"3h 0m",g:"Biography · Drama · History",c:"Cillian Murphy, Emily Blunt, Robert Downey Jr.",d:"The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II and the moral weight that followed.",img:"https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",bg:"https://image.tmdb.org/t/p/original/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"},
+    {t:"Dune: Part Two",y:2024,m:96,r:8.5,cert:"PG-13",rt:"2h 46m",g:"Sci-Fi · Adventure · Drama",c:"Timothée Chalamet, Zendaya, Rebecca Ferguson",d:"Paul Atreides unites with Chani and the Fremen while on a path of revenge against the conspirators who destroyed his family.",img:"https://image.tmdb.org/t/p/w500/czembW0Rk1Ke7lCJjzsOGnrKhd7.jpg",bg:"https://image.tmdb.org/t/p/original/czembW0Rk1Ke7lCJjzsOGnrKhd7.jpg"},
+    {t:"The Dark Knight",y:2008,m:99,r:9.0,cert:"PG-13",rt:"2h 32m",g:"Action · Crime · Drama",c:"Christian Bale, Heath Ledger, Aaron Eckhart",d:"When the menace known as the Joker wreaks havoc on Gotham, Batman must confront his greatest psychological and physical tests.",img:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",bg:"https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg"},
+    {t:"Interstellar",y:2014,m:98,r:8.7,cert:"PG-13",rt:"2h 49m",g:"Sci-Fi · Drama · Adventure",c:"Matthew McConaughey, Anne Hathaway, Jessica Chastain",d:"A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival as Earth dies.",img:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",bg:"https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg"},
+    {t:"Avengers: Endgame",y:2019,m:97,r:8.4,cert:"PG-13",rt:"3h 2m",g:"Action · Sci-Fi · Adventure",c:"Robert Downey Jr., Chris Evans, Scarlett Johansson",d:"After Thanos' snap, the surviving Avengers assemble one last time to undo the destruction and restore balance to the universe.",img:"https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",bg:"https://image.tmdb.org/t/p/original/or06FN3Dka5tukK1e9sl16pB3iy.jpg"},
+    {t:"Parasite",y:2019,m:99,r:8.5,cert:"R",rt:"2h 12m",g:"Drama · Thriller · Dark Comedy",c:"Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",d:"Greed and class discrimination threaten the symbiotic relationship between the wealthy Park family and the destitute Kim clan.",img:"https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",bg:"https://image.tmdb.org/t/p/original/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"},
+    {t:"Top Gun: Maverick",y:2022,m:96,r:8.2,cert:"PG-13",rt:"2h 10m",g:"Action · Drama",c:"Tom Cruise, Miles Teller, Jennifer Connelly",d:"After thirty years, Maverick is still pushing the envelope as a top naval aviator, leading Top Gun's elite graduates on a dangerous mission.",img:"https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",bg:"https://image.tmdb.org/t/p/original/62HCnUTziyWcpDaBO2i1DX17ljH.jpg"},
+    {t:"Spider-Man: No Way Home",y:2021,m:95,r:8.2,cert:"PG-13",rt:"2h 28m",g:"Action · Adventure · Sci-Fi",c:"Tom Holland, Zendaya, Benedict Cumberbatch",d:"Peter Parker asks Doctor Strange for help after his identity is revealed, unleashing villains from alternate universes.",img:"https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",bg:"https://image.tmdb.org/t/p/original/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"},
+    {t:"Gladiator II",y:2024,m:89,r:7.2,cert:"R",rt:"2h 28m",g:"Action · Drama · History",c:"Paul Mescal, Denzel Washington, Pedro Pascal",d:"Lucius is forced into the Roman Colosseum by tyrannical emperors. Looking to the past for strength, he fights for the empire's future.",img:"https://image.tmdb.org/t/p/w500/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",bg:"https://image.tmdb.org/t/p/original/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg"},
+    {t:"Poor Things",y:2023,m:91,r:8.0,cert:"R",rt:"2h 21m",g:"Comedy · Drama · Fantasy",c:"Emma Stone, Mark Ruffalo, Willem Dafoe",d:"The fantastical evolution of Bella Baxter, a young woman brought back to life by an unorthodox scientist, discovering the world on her own terms.",img:"https://image.tmdb.org/t/p/w500/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg",bg:"https://image.tmdb.org/t/p/original/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg"},
+  ],
+  series: [
+    {t:"Stranger Things S5",y:2025,m:99,r:8.7,cert:"TV-14",rt:"5 Seasons",g:"Sci-Fi · Horror · Drama",c:"Millie Bobby Brown, Finn Wolfhard, Winona Ryder",d:"The gang faces their most terrifying enemy yet as the Upside Down bleeds into Hawkins one final time.",img:"https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",bg:"https://image.tmdb.org/t/p/original/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg"},
+    {t:"Mirzapur S3",y:2024,m:95,r:8.5,cert:"A",rt:"3 Seasons",g:"Crime · Drama · Thriller",c:"Pankaj Tripathi, Ali Fazal, Divyendu Sharma",d:"The gun-toting residents of Mirzapur scramble for power in this gritty crime drama set in the badlands of Uttar Pradesh.",img:"https://image.tmdb.org/t/p/w500/tGELjcq57M5vR7P1ZMXdX9JQLWF.jpg",bg:"https://image.tmdb.org/t/p/original/tGELjcq57M5vR7P1ZMXdX9JQLWF.jpg"},
+    {t:"Scam 1992",y:2020,m:99,r:9.3,cert:"TV-MA",rt:"1 Season",g:"Crime · Biography · Drama",c:"Pratik Gandhi, Shreya Dhanwanthary",d:"The jaw-dropping true story of Harshad Mehta, who single-handedly rocked the Bombay Stock Exchange with an unprecedented scam.",img:"https://image.tmdb.org/t/p/w500/nqLzVUhRkdONlV0tLqMpfkWLMEl.jpg",bg:"https://image.tmdb.org/t/p/original/nqLzVUhRkdONlV0tLqMpfkWLMEl.jpg"},
+    {t:"Money Heist",y:2021,m:96,r:8.2,cert:"TV-MA",rt:"5 Seasons",g:"Action · Crime · Drama",c:"Álvaro Morte, Úrsula Corberó, Itziar Ituño",d:"The Professor and his crew carry out the most elaborate robbery in history — storming the Spanish Mint with 67 hostages.",img:"https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg",bg:"https://image.tmdb.org/t/p/original/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg"},
+    {t:"Breaking Bad",y:2013,m:99,r:9.5,cert:"TV-MA",rt:"5 Seasons",g:"Crime · Drama · Thriller",c:"Bryan Cranston, Aaron Paul, Anna Gunn",d:"A high school chemistry teacher diagnosed with cancer transforms into a ruthless drug kingpin. The greatest TV drama ever made.",img:"https://image.tmdb.org/t/p/w500/3xnWaLQjelJDDF7LT1WBo6f4BRe.jpg",bg:"https://image.tmdb.org/t/p/original/3xnWaLQjelJDDF7LT1WBo6f4BRe.jpg"},
+    {t:"Panchayat S3",y:2024,m:98,r:9.0,cert:"U",rt:"3 Seasons",g:"Comedy · Drama · Slice of Life",c:"Jitendra Kumar, Raghubir Yadav, Neena Gupta",d:"An IIT graduate reluctantly works as a Panchayat secretary in a remote village and discovers the real meaning of service.",img:"https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg",bg:"https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg"},
+    {t:"Squid Game S2",y:2024,m:96,r:8.0,cert:"TV-MA",rt:"2 Seasons",g:"Thriller · Drama · Sci-Fi",c:"Lee Jung-jae, Park Hae-soo, Wi Ha-jun",d:"Seong Gi-hun returns to the deadly games in a mission for justice against those behind the brutal competition.",img:"https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",bg:"https://image.tmdb.org/t/p/original/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg"},
+    {t:"The Boys S4",y:2024,m:97,r:8.7,cert:"TV-MA",rt:"4 Seasons",g:"Action · Comedy · Superhero",c:"Karl Urban, Jack Quaid, Antony Starr",d:"A band of vigilantes continue to fight back against corrupt superheroes who misuse their powers for profit and politics.",img:"https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISKAngal1XZ.jpg",bg:"https://image.tmdb.org/t/p/original/stTEycfG9928HYGEISKAngal1XZ.jpg"},
+    {t:"The Crown S6",y:2023,m:92,r:8.6,cert:"TV-MA",rt:"6 Seasons",g:"Drama · History · Biography",c:"Imelda Staunton, Jonathan Pryce, Elizabeth Debicki",d:"The final chapter of the Queen's reign through the turbulent Diana years to the dawn of the 21st century.",img:"https://image.tmdb.org/t/p/w500/mq1lAtMIXrZ6CljjOcXxdaEAFUP.jpg",bg:"https://image.tmdb.org/t/p/original/mq1lAtMIXrZ6CljjOcXxdaEAFUP.jpg"},
+    {t:"Delhi Crime S2",y:2022,m:94,r:8.5,cert:"TV-MA",rt:"2 Seasons",g:"Crime · Drama · Thriller",c:"Shefali Shah, Rasika Dugal, Adil Hussain",d:"Delhi Police DCP Vartika Chhibber investigates a chilling series of murders targeting senior citizens.",img:"https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg",bg:"https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg"},
+  ],
+  ott: [
+    {t:"Heeramandi",y:2024,m:90,r:6.5,cert:"A",rt:"Netflix Original",g:"Drama · Period · Romance",c:"Manisha Koirala, Sonakshi Sinha, Aditi Rao Hydari",d:"Set in Lahore's Heera Mandi before partition, this lavish period drama explores the lives of courtesans fighting for love and freedom.",img:"https://image.tmdb.org/t/p/w500/t99saDEWkbGR3OhivBPjxHcHSfz.jpg",bg:"https://image.tmdb.org/t/p/original/t99saDEWkbGR3OhivBPjxHcHSfz.jpg"},
+    {t:"Kill",y:2024,m:94,r:7.9,cert:"A",rt:"Netflix Original",g:"Action · Thriller",c:"Lakshya, Raghav Juyal, Tanya Maniktala",d:"An army commando boards a train and finds himself in a brutal, blood-soaked battle against 40 ruthless criminals.",img:"https://image.tmdb.org/t/p/w500/vBZ0qvaRxVEfV5V5Ftu2P38ORLI.jpg",bg:"https://image.tmdb.org/t/p/original/vBZ0qvaRxVEfV5V5Ftu2P38ORLI.jpg"},
+    {t:"IC 814: Kandahar Hijack",y:2024,m:93,r:8.2,cert:"TV-MA",rt:"Netflix Original",g:"Thriller · Drama · True Crime",c:"Vijay Varma, Naseeruddin Shah, Pankaj Kapur",d:"Based on the true 1999 hijacking of Indian Airlines Flight 814 — the 8-day standoff that shook an entire nation.",img:"https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg",bg:"https://image.tmdb.org/t/p/original/8UlWHLMpgZm9bx6QYrbaiDR3ftV.jpg"},
+    {t:"3 Body Problem",y:2024,m:92,r:7.4,cert:"TV-MA",rt:"Netflix Original",g:"Sci-Fi · Drama · Mystery",c:"Eiza González, Jovan Adepo, Liam Cunningham",d:"Five brilliant friends find their lives intertwined with a mystery that threatens the entire existence of the human race.",img:"https://image.tmdb.org/t/p/w500/1DXKOhBdGrmm0eDt8OikJxjJoYr.jpg",bg:"https://image.tmdb.org/t/p/original/1DXKOhBdGrmm0eDt8OikJxjJoYr.jpg"},
+    {t:"The Gentlemen",y:2024,m:95,r:8.3,cert:"TV-MA",rt:"Netflix Original",g:"Crime · Comedy · Drama",c:"Theo James, Kaya Scodelario, Giancarlo Esposito",d:"An English aristocrat discovers his inherited estate has a very profitable and very dangerous marijuana empire under it.",img:"https://image.tmdb.org/t/p/w500/nVbSbAHRtFiahqDkdVq1RdQRzoh.jpg",bg:"https://image.tmdb.org/t/p/original/nVbSbAHRtFiahqDkdVq1RdQRzoh.jpg"},
+    {t:"Ripley",y:2024,m:96,r:8.5,cert:"TV-MA",rt:"Netflix Original",g:"Thriller · Crime · Drama",c:"Andrew Scott, Johnny Flynn, Dakota Fanning",d:"A con man in New York is hired by a wealthy man to bring his son home from Italy — and proceeds to do whatever it takes.",img:"https://image.tmdb.org/t/p/w500/hMbSUxJcuXFpLVMTnCQFOVOiSWA.jpg",bg:"https://image.tmdb.org/t/p/original/hMbSUxJcuXFpLVMTnCQFOVOiSWA.jpg"},
+    {t:"Maharaj",y:2024,m:89,r:7.1,cert:"UA",rt:"Netflix Original",g:"Drama · Biography · Period",c:"Junaid Khan, Jaideep Ahlawat, Shalini Pandey",d:"Based on the landmark 1862 Maharaj libel case — a courageous journalist takes on an influential religious figure exploiting followers.",img:"https://image.tmdb.org/t/p/w500/t99saDEWkbGR3OhivBPjxHcHSfz.jpg",bg:"https://image.tmdb.org/t/p/original/t99saDEWkbGR3OhivBPjxHcHSfz.jpg"},
+    {t:"Fighter",y:2024,m:88,r:6.9,cert:"UA",rt:"Amazon Original",g:"Action · Drama · Patriotic",c:"Hrithik Roshan, Deepika Padukone, Anil Kapoor",d:"India's first aerial action franchise — the Air Dragons squadron strikes back at cross-border terrorism with precision and valor.",img:"https://image.tmdb.org/t/p/w500/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg",bg:"https://image.tmdb.org/t/p/original/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg"},
+  ]
+};
+
+// Flat list
+const ALL = [];
+Object.entries(DB).forEach(([cat, arr]) => arr.forEach((mv, i) => ALL.push({...mv, cat, idx:i})));
+
+// State
+let liked = JSON.parse(localStorage.getItem('nfx_liked') || '[]');
+let myList = JSON.parse(localStorage.getItem('nfx_mylist') || '[]');
+let currentMv = null;
+let playerInterval = null;
+let playerProgress = 0;
+let playerPlaying = true;
+let playerMuted = false;
+
+// ── RENDER ──
+function card(mv, isTop10=false) {
+  const isLiked = liked.includes(mv.t);
+  if (isTop10) {
+    const n = mv._top10n || 1;
+    return `<div class="t10card" onclick="openInfo('${mv.cat}',${mv.idx})">
+      <div class="t10num">${n}</div>
+      <img src="${mv.img}" alt="${mv.t}" onerror="this.style.background='#333';this.removeAttribute('src')">
+    </div>`;
+  }
+  return `<div class="card" onclick="openInfo('${mv.cat}',${mv.idx})">
+    <img class="card-poster" src="${mv.img}" alt="${mv.t}" onerror="this.style.background='#333';this.removeAttribute('src')">
+    <div class="card-body">
+      <div class="card-title">${mv.t}</div>
+      <div class="card-sub">
+        <span class="m">${mv.m}%</span>
+        <span>${mv.y}</span>
+        <span class="r">★ ${mv.r}</span>
+      </div>
+    </div>
+    <div class="card-ov">
+      <div class="card-ov-btns">
+        <button class="cob play-sm" onclick="event.stopPropagation();playMovie('${mv.cat}',${mv.idx})">▶</button>
+        <button class="cob" onclick="event.stopPropagation();quickList('${mv.t}')">＋</button>
+        <button class="cob ${isLiked?'liked':''}" onclick="event.stopPropagation();quickLike('${mv.t}',this)">${isLiked?'❤️':'♡'}</button>
+        <button class="cob" style="margin-left:auto;font-size:.65rem" onclick="event.stopPropagation();openInfo('${mv.cat}',${mv.idx})">⌄</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAll() {
+  // Top 10
+  const t10 = [...DB.bollywood.slice(0,3), ...DB.hollywood.slice(0,4), ...DB.series.slice(0,3)]
+    .slice(0,10).map((mv, i) => {
+      const cat = DB.bollywood.includes(mv)?'bollywood':DB.hollywood.includes(mv)?'hollywood':'series';
+      return {...mv, cat, idx:(DB[cat]||[]).indexOf(mv), _top10n:i+1};
+    });
+  $('#r-top10').innerHTML = t10.map(m => card(m, true)).join('');
+  $('#r-bolly').innerHTML = DB.bollywood.map((m,i) => card({...m,cat:'bollywood',idx:i})).join('');
+  $('#r-holly').innerHTML = DB.hollywood.map((m,i) => card({...m,cat:'hollywood',idx:i})).join('');
+  $('#r-ott').innerHTML = DB.ott.map((m,i) => card({...m,cat:'ott',idx:i})).join('');
+  $('#r-series').innerHTML = DB.series.map((m,i) => card({...m,cat:'series',idx:i})).join('');
+  const awards = [DB.bollywood[4],DB.bollywood[6],DB.hollywood[0],DB.hollywood[5],DB.series[4],DB.series[2],DB.hollywood[3],DB.bollywood[3]];
+  $('#r-award').innerHTML = awards.map(m => { const cat=DB.bollywood.includes(m)?'bollywood':DB.hollywood.includes(m)?'hollywood':'series'; return card({...m,cat,idx:DB[cat].indexOf(m)}); }).join('');
+  const most = [DB.hollywood[4],DB.bollywood[2],DB.series[0],DB.hollywood[3],DB.bollywood[3],DB.series[6],DB.ott[1],DB.hollywood[6]];
+  $('#r-most').innerHTML = most.map(m => { const cat=DB.bollywood.includes(m)?'bollywood':DB.hollywood.includes(m)?'hollywood':DB.ott.includes(m)?'ott':'series'; return card({...m,cat,idx:DB[cat].indexOf(m)}); }).join('');
+}
+
+// ── HERO ──
+const heroMovies = [DB.bollywood[0], DB.hollywood[0], DB.bollywood[3], DB.hollywood[1], DB.series[0]];
+const heroCats = ['bollywood','hollywood','bollywood','hollywood','series'];
+let heroIdx = 0;
+function setHero(i) {
+  const mv = heroMovies[i];
+  $('#heroBg').style.backgroundImage = `url(${mv.bg||mv.img})`;
+  $('#heroTitle').textContent = mv.t;
+  $('#heroYear').textContent = mv.y;
+  $('#heroIMDB').textContent = '★ ' + mv.r;
+  $('#heroDesc').textContent = mv.d;
+  $('#heroPlay').onclick = () => playMovie(heroCats[i], heroMovies[i] === DB.bollywood[0] ? 0 : DB[heroCats[i]].indexOf(heroMovies[i]));
+  $('#heroInfo').onclick = () => openInfo(heroCats[i], DB[heroCats[i]].indexOf(heroMovies[i]));
+}
+setHero(0);
+setInterval(() => { heroIdx = (heroIdx+1) % heroMovies.length; setHero(heroIdx); }, 9000);
+
+// ── INFO MODAL ──
+function openInfo(cat, idx) {
+  const mv = DB[cat][idx];
+  if (!mv) return;
+  currentMv = {mv, cat, idx};
+  $('#infoImg').src = mv.bg || mv.img;
+  $('#infoTitle').textContent = mv.t;
+  $('#infoMatch').textContent = mv.m + '% Match';
+  $('#infoRuntime').textContent = mv.rt + ' · ' + mv.y;
+  $('#infoIMDB').textContent = '★ ' + mv.r + ' IMDb';
+  $('#infoDesc').textContent = mv.d;
+  $('#infoCast').textContent = mv.c;
+  $('#infoGenre').textContent = mv.g;
+  const isLiked = liked.includes(mv.t);
+  $('#infoLikeBtn').innerHTML = isLiked ? '❤️ Liked' : '♡ Like';
+  $('#infoLikeBtn').style.borderColor = isLiked ? '#e50914' : '';
+  $('#infoLikeStatus').className = 'info-like-status' + (isLiked ? ' on' : '');
+  $('#infoPlayBtn').onclick = () => { closeInfoBtn(); playMovie(cat, idx); };
+  $('#infoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeInfoBtn() { $('#infoOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function closeInfo(e) { if (e.target === $('#infoOverlay')) closeInfoBtn(); }
+
+// ── LIKE ──
+function toggleLike() {
+  if (!currentMv) return;
+  const t = currentMv.mv.t;
+  const i = liked.indexOf(t);
+  if (i === -1) { liked.push(t); toast('❤️ Added to Liked!'); }
+  else { liked.splice(i, 1); toast('💔 Removed from Liked'); }
+  localStorage.setItem('nfx_liked', JSON.stringify(liked));
+  updateLikeBadge();
+  // Update UI
+  const isLiked = liked.includes(t);
+  $('#infoLikeBtn').innerHTML = isLiked ? '❤️ Liked' : '♡ Like';
+  $('#infoLikeStatus').className = 'info-like-status' + (isLiked ? ' on' : '');
+  renderAll();
+  if ($('#likedPage').classList.contains('open')) renderLiked();
+}
+function quickLike(title, btn) {
+  const i = liked.indexOf(title);
+  if (i === -1) { liked.push(title); btn.innerHTML = '❤️'; btn.classList.add('liked'); toast('❤️ Liked!'); }
+  else { liked.splice(i, 1); btn.innerHTML = '♡'; btn.classList.remove('liked'); toast('💔 Removed'); }
+  localStorage.setItem('nfx_liked', JSON.stringify(liked));
+  updateLikeBadge();
+  if ($('#likedPage').classList.contains('open')) renderLiked();
+}
+function toggleLikeFromPlayer() {
+  if (!currentMv) return;
+  const t = currentMv.mv.t;
+  const i = liked.indexOf(t);
+  if (i === -1) { liked.push(t); toast('❤️ Liked!'); }
+  else { liked.splice(i, 1); toast('💔 Removed'); }
+  localStorage.setItem('nfx_liked', JSON.stringify(liked));
+  updateLikeBadge();
+  const isLiked = liked.includes(t);
+  $('#playerLikeBtn').innerHTML = isLiked ? '❤️' : '♡';
+  $('#playerLikeBtn').className = 'player-like-btn' + (isLiked ? ' liked' : '');
+  renderAll();
+}
+function updateLikeBadge() {
+  const b = $('#likedBadge');
+  if (liked.length > 0) { b.style.display = 'flex'; b.textContent = liked.length; }
+  else { b.style.display = 'none'; }
+}
+
+// ── MY LIST ──
+function addToList() {
+  if (!currentMv) return;
+  const t = currentMv.mv.t;
+  if (!myList.includes(t)) { myList.push(t); localStorage.setItem('nfx_mylist', JSON.stringify(myList)); }
+  toast('✅ Added to My List');
+}
+function quickList(title) {
+  if (!myList.includes(title)) { myList.push(title); localStorage.setItem('nfx_mylist', JSON.stringify(myList)); }
+  toast('✅ Added to My List');
+}
+
+// ── PLAYER ──
+function playMovie(cat, idx) {
+  const mv = DB[cat][idx];
+  if (!mv) return;
+  currentMv = {mv, cat, idx};
+  $('#playerPoster').src = mv.bg || mv.img;
+  $('#playerTitle').textContent = mv.t + ' (' + mv.y + ')';
+  const isLiked = liked.includes(mv.t);
+  $('#playerLikeBtn').innerHTML = isLiked ? '❤️' : '♡';
+  $('#playerLikeBtn').className = 'player-like-btn' + (isLiked ? ' liked' : '');
+  playerProgress = 0;
+  playerPlaying = true;
+  $('#progressFill').style.width = '0%';
+  $('#playerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  startProgress();
+  closeInfoBtn();
+}
+function startProgress() {
+  clearInterval(playerInterval);
+  playerInterval = setInterval(() => {
+    if (!playerPlaying) return;
+    playerProgress = Math.min(100, playerProgress + 0.05);
+    $('#progressFill').style.width = playerProgress + '%';
+    const total = 9000, elapsed = total * playerProgress / 100;
+    $('#pcTime').textContent = formatTime(elapsed) + ' / 2:28:00';
+    if (playerProgress >= 100) { clearInterval(playerInterval); playerPlaying = false; }
+  }, 450);
+}
+function formatTime(s) {
+  const h = Math.floor(s/3600), m = Math.floor((s%3600)/60), sec = Math.floor(s%60);
+  return h > 0 ? `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}` : `${m}:${String(sec).padStart(2,'0')}`;
+}
+function togglePlay() {
+  playerPlaying = !playerPlaying;
+  document.querySelector('.pc-btn').textContent = playerPlaying ? '⏸' : '▶';
+}
+function toggleMute() {
+  playerMuted = !playerMuted;
+  document.querySelectorAll('.pc-btn')[2].textContent = playerMuted ? '🔇' : '🔊';
+}
+function scrub(e) {
+  const bar = e.currentTarget;
+  const pct = (e.offsetX / bar.offsetWidth) * 100;
+  playerProgress = Math.max(0, Math.min(100, pct));
+  $('#progressFill').style.width = playerProgress + '%';
+}
+function closePlayer() {
+  clearInterval(playerInterval);
+  $('#playerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── LIKED PAGE ──
+function openLiked() {
+  $('#likedPage').classList.add('open');
+  renderLiked();
+  document.body.style.overflow = 'hidden';
+}
+function renderLiked() {
+  const grid = $('#likedGrid');
+  const likedMovies = ALL.filter(m => liked.includes(m.t));
+  if (likedMovies.length === 0) {
+    grid.innerHTML = `<div class="liked-empty" style="grid-column:1/-1">
+      <div class="ei">💔</div>
+      <p>No liked movies yet.<br>Click ♡ on any title to like it!</p>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = likedMovies.map(m => card(m)).join('');
+}
+function showHome() {
+  $('#likedPage').classList.remove('open');
+  $('#searchPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── SEARCH ──
+function toggleSearch() {
+  const p = $('#searchPanel');
+  p.classList.toggle('open');
+  if (p.classList.contains('open')) {
+    $('#searchInput').value = '';
+    $('#searchGrid').innerHTML = '';
+    setTimeout(() => $('#searchInput').focus(), 80);
+  }
+}
+function doSearch() {
+  const q = $('#searchInput').value.toLowerCase().trim();
+  if (!q) { $('#searchGrid').innerHTML = ''; return; }
+  const res = ALL.filter(m =>
+    m.t.toLowerCase().includes(q) ||
+    m.g.toLowerCase().includes(q) ||
+    m.c.toLowerCase().includes(q) ||
+    m.d.toLowerCase().includes(q)
+  );
+  $('#searchGrid').innerHTML = res.length
+    ? res.map(m => card(m)).join('')
+    : `<p style="color:#555;font-size:1rem;padding:20px">No results for "${q}"</p>`;
+}
+
+// ── TABS ──
+function filterTab(cat, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('.row[data-cat]').forEach(row => {
+    if (cat === 'all') { row.style.display = ''; return; }
+    row.style.display = (row.dataset.cat === cat || row.dataset.cat === 'all') ? '' : 'none';
+  });
+}
+
+// ── NOTIF ──
+function toggleNotif() {
+  $('#notifPanel').classList.toggle('open');
+  $('#notifBadge').style.display = 'none';
+}
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', () => $('#nav').classList.toggle('solid', scrollY > 60));
+
+// ── CLOSE ON OUTSIDE ──
+document.addEventListener('click', e => {
+  if (!e.target.closest('#notifPanel') && !e.target.closest('.icon-btn')) {
+    $('#notifPanel').classList.remove('open');
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeInfoBtn(); closePlayer(); showHome(); }
+});
+
+// ── TOAST ──
+function toast(msg) {
+  const t = $('#toast');
+  $('#toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._to);
+  t._to = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ── HELPER ──
+function $(sel) { return document.querySelector(sel); }
+
+// ── INIT ──
+renderAll();
+updateLikeBadge();
+</script>
+</body>
+</html>
