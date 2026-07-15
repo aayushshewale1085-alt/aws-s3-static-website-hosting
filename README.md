@@ -82,9 +82,9 @@ Static-Website-Hosting-on-S3/
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 111622" src="https://github.com/user-attachments/assets/5dcd36c9-33de-47a0-8fe8-393834c3518d" />
+<img src="https://github.com/user-attachments/assets/5dcd36c9-33de-47a0-8fe8-393834c3518d" width="800"><br><br>
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 111039" src="https://github.com/user-attachments/assets/7294f9ff-d50c-4994-8058-8471e834fcbd" />
+<img src="https://github.com/user-attachments/assets/bdc3a2a1-4e34-4cb0-a081-9dfce11f4ee0" width="800"><br><br>
 
 
 
@@ -113,7 +113,7 @@ was uploaded.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 112838" src="https://github.com/user-attachments/assets/0156f595-8fd5-4678-9ae4-312dd2fcad66" />
+<img width="1920" height="1080" alt="Screenshot 2026-07-09 112838" src="https://github.com/user-attachments/assets/0156f595-8fd5-4678-9ae4-312dd2fcad66" /><br>
 
 
 ---
@@ -140,7 +140,7 @@ Save changes.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-09 112853" src="https://github.com/user-attachments/assets/94c21c8d-6fe0-457d-8e14-87a64bcbef63" />
+<img width="1920" height="1080" alt="Screenshot 2026-07-09 112853" src="https://github.com/user-attachments/assets/94c21c8d-6fe0-457d-8e14-87a64bcbef63" /><<br>
 
 
 ---
@@ -158,9 +158,9 @@ Open it in the browser.
 
 ### Screenshot
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183443" src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" />
+<img width="1920" height="1080" alt="Screenshot 2026-07-15 183443" src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" /><<br>
 
-<img width="1920" height="1080" alt="Screenshot 2026-07-15 183429" src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" />
+<img width="1920" height="1080" alt="Screenshot 2026-07-15 183429" src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" /><br><br>
 
 
 ---
