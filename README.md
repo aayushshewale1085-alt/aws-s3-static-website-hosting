@@ -251,7 +251,7 @@ For static website hosting:
 
 ---
 
-# 📷 Project Screenshots
+# 📷 Project Steps
 
 | Step | Description |
 |------|-------------|
