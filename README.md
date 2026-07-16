@@ -72,12 +72,12 @@ Static-Website-Hosting-on-S3/
 
 ## Step 1: Create an S3 Bucket
 
-- Open AWS Console
+- Open the AWS Console
 - Navigate to Amazon S3
 - Click **Create Bucket**
-- Choose Region
+- Choose a Region
 - Enter a unique bucket name
-- Disable Block Public Access (for static hosting)
+- Disable Block Public Access (required for static hosting)
 - Create the bucket
 
 ### Screenshot
@@ -85,8 +85,6 @@ Static-Website-Hosting-on-S3/
 <img src="https://github.com/user-attachments/assets/5dcd36c9-33de-47a0-8fe8-393834c3518d" width="800"><br><br>
 
 <img src="https://github.com/user-attachments/assets/bdc3a2a1-4e34-4cb0-a081-9dfce11f4ee0" width="800"><br><br>
-
-
 
 ---
 
@@ -96,9 +94,7 @@ After creating the bucket, it appears in the S3 bucket list.
 
 ### Screenshot
 
-<img width="800"  alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/72eeaabb-a737-424d-bf21-f2d9825dd4f2" />
-
-
+<img width="800" alt="Screenshot 2026-07-15 183805" src="https://github.com/user-attachments/assets/72eeaabb-a737-424d-bf21-f2d9825dd4f2" />
 
 ---
 
@@ -106,9 +102,9 @@ After creating the bucket, it appears in the S3 bucket list.
 
 Upload your website files (HTML, CSS, JS).
 
-In this project only:
+In this project, only:
 
-- index.html
+- `index.html`
 
 was uploaded.
 
@@ -120,12 +116,10 @@ was uploaded.
 
 ## Step 4: Enable Static Website Hosting
 
-Navigate to
+Navigate to:
 
 ```
-Bucket
-→ Properties
-→ Static Website Hosting
+Bucket → Properties → Static Website Hosting
 ```
 
 Enable:
@@ -141,6 +135,7 @@ Save changes.
 ### Screenshot
 
 <img src="https://github.com/user-attachments/assets/94c21c8d-6fe0-457d-8e14-87a64bcbef63" width="800"><br><br>
+
 ---
 
 ## Step 5: Open Website Endpoint
@@ -150,14 +145,17 @@ Copy the generated Website Endpoint.
 Example:
 
 ```
-http://bucke+t-name.s3-website-us-east-1.amazonaws.com
+http://bucket-name.s3-website-us-east-1.amazonaws.com
 ```
+
 Open it in the browser.
 
 ### Screenshot
+
 <img src="https://github.com/user-attachments/assets/9c8dc61f-4801-4a0c-92d2-ca29f5d32958" width="800"><br><br>
 
 <img src="https://github.com/user-attachments/assets/da1589ad-52cc-4552-9f8c-7018265a92e1" width="800"><br><br>
+
 ---
 
 ## Step 6: Replica Bucket
@@ -167,9 +165,9 @@ To demonstrate object replication manually, a second S3 bucket was created in th
 ### Steps Performed
 
 1. Created a new S3 bucket.
-2. Selected the **same AWS Region** as the primary bucket.
+2. Selected the same AWS Region as the primary bucket.
 3. Uploaded the same website files (`index.html`) to the replica bucket.
-4. Enabled **Static Website Hosting** on the replica bucket.
+4. Enabled Static Website Hosting on the replica bucket.
 5. Configured the same public access settings and bucket policy.
 6. Verified that the replica bucket hosted the same static website successfully.
 
@@ -182,7 +180,7 @@ To demonstrate object replication manually, a second S3 bucket was created in th
 ## 🔁 Replica Overview
 
 | Feature | Primary Bucket | Replica Bucket |
-|---------|----------------|----------------|
+|---|---|---|
 | AWS Account | Same | Same |
 | AWS Region | Same | Same |
 | Website Files | index.html | index.html |
@@ -224,13 +222,7 @@ The following policy allows public read access to the website objects.
 }
 ```
 
-Replace:
-
-```
-YOUR_BUCKET_NAME
-```
-
-with your bucket name.
+Replace `YOUR_BUCKET_NAME` with your bucket name.
 
 ---
 
@@ -248,7 +240,7 @@ For static website hosting:
 # 📷 Project Steps
 
 | Step | Description |
-|------|-------------|
+|---|---|
 | ✅ | Create Bucket |
 | ✅ | Bucket List |
 | ✅ | Upload HTML File |
@@ -262,13 +254,13 @@ For static website hosting:
 
 After completing this project, I learned:
 
-- Creating Amazon S3 Buckets
-- Object Upload
-- Static Website Hosting
-- Bucket Policies
-- Public Access Configuration
-- Website Endpoints
-- AWS Storage Services
+- Creating Amazon S3 buckets
+- Object upload
+- Static website hosting
+- Bucket policies
+- Public access configuration
+- Website endpoints
+- AWS storage services
 
 ---
 
@@ -279,8 +271,8 @@ After completing this project, I learned:
 - Configure a custom domain
 - Enable HTTPS using CloudFront
 - Integrate Route 53
-- Add Versioning
-- Enable Logging
+- Add versioning
+- Enable logging
 
 ---
 
